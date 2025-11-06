@@ -1,9 +1,11 @@
-function DJControls({ onVolumeChange, volume }) {
+function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps, onBPMDivisionChange, bpmDivision, onAccordionChange, isAccordionOpen }) {
     return (
     <>
         <div className="input-group mb-3">
-            <span className="input-group-text" id="cps_label">Set CPS (Counts Per Second):</span>
-            <input type="text" className="form-control" placeholder="120" aria-label="cps" aria-describedby="cps_label"/>
+            <span className="input-group-text" id="cps_label">Set CPS (Cycles Per Second):</span>
+                <input type="text" className="form-control" placeholder="120" value={bpm} onChange={onBPMChange} />
+                <input type="text" className="form-control" placeholder="60" value={bps} onChange={onBPSChange} />
+                <input type="text" className="form-control" placeholder="4" value={bpmDivision} onChange={onBPMDivisionChange} />
         </div>
 
         <div>
@@ -25,6 +27,27 @@ function DJControls({ onVolumeChange, volume }) {
                 </label>
             </div>
         </div>
+
+        <div className="accordion" id="effectsAccordion">
+            <div className="accordion-item">
+                <h2 className="accordion-header">
+                    <button className={`accordion-button ${!isAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onAccordionChange}>Effects List</button>
+                </h2>
+                {isAccordionOpen && (
+                    <div className="accordion-body">
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" id="reverb" />
+                            <label className="form-check-label" htmlFor="reverb">Reverb</label>
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" id="delay" />
+                            <label className="form-check-label" htmlFor="delay">Delay</label>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+
     </>
     );
 }

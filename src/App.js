@@ -11,7 +11,7 @@ import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import DJControls from './Components/DJControls';
 import PlayButtons from './Components/PlayButtons';
-import ProcButtons from './Components/ProcButtons';
+// import ProcButtons from './Components/ProcButtons';
 import PreprocessTextbox from './Components/PreprocessTextbox';
 
 let globalEditor = null;
@@ -19,52 +19,6 @@ let globalEditor = null;
 const handleD3Data = (event) => {
     console.log(event.detail);
 };
-
-//export function SetupButtons() {
-
-//    document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
-//    document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-//    document.getElementById('process').addEventListener('click', () => {
-//        Proc()
-//    }
-//    )
-//    document.getElementById('process_play').addEventListener('click', () => {
-//        if (globalEditor != null) {
-//            Proc()
-//            globalEditor.evaluate()
-//        }
-//    }
-//    )
-//}
-
-
-
-//export function ProcAndPlay() {
-//    if (globalEditor != null && globalEditor.repl.state.started == true) {
-//        console.log(globalEditor)
-//        Proc()
-//        globalEditor.evaluate();
-//    }
-//}
-
-// TODO : improve this to handle multiple replacements
-//export function Proc() {
-
-//    let proc_text = document.getElementById('proc').value
-//    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
-//    ProcessText(proc_text);
-//    globalEditor.setCode(proc_text_replaced)
-//}
-
-//export function ProcessText(match, ...args) {
-
-//    let replace = ""
-//    if (document.getElementById('flexRadioDefault2').checked) {
-//        replace = "_"
-//    }
-
-//    return replace
-//}
 
 export default function StrudelDemo() {
 
@@ -81,6 +35,18 @@ export default function StrudelDemo() {
     const [songText, setSongText] = useState(stranger_tune)
 
     const [volume, setVolume] = useState(1.0);
+
+    const [bpm, setBpm] = useState(140);
+    const [bps, setBps] = useState(60);
+    const [bpmDivision, setBpmDivision] = useState(4);
+    const cps = bpm / bps / bpmDivision;
+
+    const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
+    const handleAccordion = () => {
+        setIsAccordionOpen(!isAccordionOpen);
+    };
+
 
 useEffect(() => {
 
@@ -121,48 +87,68 @@ useEffect(() => {
         //Proc()
     }
 
-    const changedVolume = songText.replaceAll(
+    let updatedCode = songText.replaceAll(
         "// all(x => x.gain(mouseX.range(0,1)))",
         `all(x => x.gain(${volume}))`
     );
 
-    globalEditor.setCode(changedVolume);
+    updatedCode = updatedCode.replaceAll(
+        "setcps(140/60/4)",
+        `setcps(${bpm}/${bps}/${bpmDivision})`
+    );
 
-}, [songText, volume]);
+    globalEditor.setCode(updatedCode);
+
+}, [songText, volume, bpm, bps, bpmDivision]);
 
 
 return (
-    <div>
-        <h2>Strudel Demo</h2>
-        <main>
+    <main>
+        <div className="container-fluid">
 
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <PreprocessTextbox defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
-                    </div>
-                    <div className="col-md-4">
-
-                        <nav>
-                            <ProcButtons />
-                            <br />
-                            <PlayButtons onPlay={handlePlay} onStop={handleStop} />
-                        </nav>
-                    </div>
+            <div className="row mb-4">
+                <div className="col-md-6" style={{ maxHeight: '50vh', overflowY: 'auto', paddingRight: '10px' }}>
+                    <h3>DJ Script</h3>
+                    <PreprocessTextbox
+                        defaultValue={songText}
+                        onChange={(e) => setSongText(e.target.value)}
+                    />
                 </div>
-                <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <div id="editor" />
-                        <div id="output" />
-                    </div>
-                    <div className="col-md-4">
-                        <DJControls onVolumeChange={(e) => setVolume(parseFloat(e.target.value))} volume={volume} />
-                    </div>
+
+                <div className="col-md-6" style={{ maxHeight: '50vh', overflowY: 'auto', paddingLeft: '10px' }}>
+                    <h3>Strudel Editor</h3>
+                    <p>Strudel REPL:</p>
+                    <div id="editor" />
+                    <div id="output" />
                 </div>
             </div>
-            <canvas id="roll"></canvas>
-        </main >
-    </div >
+
+            <div className="row mb-4">
+                <div className="col-md-4" style={{ paddingRight: '10px' }}>
+                    <h3>Controls</h3>
+                    <DJControls
+                        onVolumeChange={(e) => setVolume(parseFloat(e.target.value))} volume={volume}
+                        onBPMChange={(e) => setBpm(e.target.value === "" ? "" : parseFloat(e.target.value))} bpm={bpm}
+                        onBPSChange={(e) => setBps(e.target.value === "" ? "" : parseFloat(e.target.value))} bps={bps}
+                        onBPMDivisionChange={(e) => setBpmDivision(e.target.value === "" ? "" : parseFloat(e.target.value))} bpmDivision={bpmDivision}
+                        isAccordionOpen={isAccordionOpen} onAccordionChange={handleAccordion}
+                    />
+                </div>
+
+                <div className="col-md-6" style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <PlayButtons onPlay={handlePlay} onStop={handleStop} />
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-12">
+                    <canvas id="roll" style={{ width: '100%', height: '200px', backgroundColor: '#222' }} />
+                </div>
+            </div>
+
+        </div>
+    </main>
+
 );
 
 
