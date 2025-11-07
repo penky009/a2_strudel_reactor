@@ -1,4 +1,4 @@
-function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps, onBPMDivisionChange, bpmDivision, onAccordionChange, isAccordionOpen }) {
+function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps, onBPMDivisionChange, bpmDivision, onAccordionChange, isAccordionOpen, drumsOn, onDrumChange, onDrum2Change }) {
     return (
     <>
         <div className="input-group mb-3">
@@ -15,20 +15,20 @@ function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps
 
         <div className="col-md-4">
             <div className="form-check">
-                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" defaultChecked />
-                <label className="form-check-label" htmlFor="flexRadioDefault1">
-                    drum: ON
+                    <input className="form-check-input" type="checkbox" name="drum_box" id="drum_box" checked={drumsOn.drums} onChange={onDrumChange} />
+                <label className="form-check-label" htmlFor="drum_box">
+                    Enable Drums
                 </label>
             </div>
             <div className="form-check">
-                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-                <label className="form-check-label" htmlFor="flexRadioDefault2">
-                    drum: HUSH
+                <input className="form-check-input" type="checkbox" name="drum2_box" id="drum2_box" checked={drumsOn.drums2} onChange={onDrum2Change} />
+                <label className="form-check-label" htmlFor="drum2_box">
+                    Enable Drums2
                 </label>
             </div>
         </div>
 
-        <div className="accordion" id="effectsAccordion">
+        <div className="mt-3 accordion" id="effectsAccordion">
             <div className="accordion-item">
                 <h2 className="accordion-header">
                     <button className={`accordion-button ${!isAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onAccordionChange}>Effects List</button>

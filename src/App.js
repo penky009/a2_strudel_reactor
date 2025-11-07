@@ -13,6 +13,7 @@ import DJControls from './Components/DJControls';
 import PlayButtons from './Components/PlayButtons';
 // import ProcButtons from './Components/ProcButtons';
 import PreprocessTextbox from './Components/PreprocessTextbox';
+import { Preprocess } from './Utilities/PreprocessingLogic';
 
 let globalEditor = null;
 
@@ -24,7 +25,20 @@ export default function StrudelDemo() {
 
     const hasRun = useRef(false);
 
+    const [songText, setSongText] = useState(stranger_tune)
+
+    const [volume, setVolume] = useState(1.0);
+
+    const [state, setState] = useState("stopped");
+
+    const [drumsOn, setDrumsOn] = useState({
+        drums: true,
+        drums2: true
+    });
+
     const handlePlay = () => {
+        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn });
+        globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
 
@@ -32,9 +46,11 @@ export default function StrudelDemo() {
         globalEditor.stop()
     }
 
-    const [songText, setSongText] = useState(stranger_tune)
-
-    const [volume, setVolume] = useState(1.0);
+    useEffect(() => {
+        if (state === "playing") {
+            handlePlay();
+        }
+    }, [volume, drumsOn]);
 
     const [bpm, setBpm] = useState(140);
     const [bps, setBps] = useState(60);
@@ -82,67 +98,64 @@ useEffect(() => {
                 },
             });
             
-        document.getElementById('proc').value = stranger_tune
+        document.getElementById('proc').value = songText;
         //SetupButtons()
-        //Proc()
+        //Proc()    
+        globalEditor.setCode(songText);
     }
 
-    let updatedCode = songText.replaceAll(
-        "// all(x => x.gain(mouseX.range(0,1)))",
-        `all(x => x.gain(${volume}))`
-    );
 
-    updatedCode = updatedCode.replaceAll(
-        "setcps(140/60/4)",
-        `setcps(${bpm}/${bps}/${bpmDivision})`
-    );
-
-    globalEditor.setCode(updatedCode);
-
-}, [songText, volume, bpm, bps, bpmDivision]);
+}, [songText]);
 
 
 return (
     <main>
-        <div className="container-fluid">
+        <header className="p-1 text-bg-light text-center">
+            <h1>Strudel DJ Demo</h1>
+            <p>Convert text to process and play with the Strudel REPL live!</p>
+        </header>
 
-            <div className="row mb-4">
-                <div className="col-md-6" style={{ maxHeight: '50vh', overflowY: 'auto', paddingRight: '10px' }}>
-                    <h3>DJ Script</h3>
+        <div className="container-fluid">
+            <div className="row mb-6">
+                <div className="col-md-6" style={{ maxHeight: '100%', overflowY: 'auto', paddingRight: '10px', display: 'flex', flexDirection: 'column' }}>
+                    <p className="mt-3">Preprocess Textbox:</p>
                     <PreprocessTextbox
                         defaultValue={songText}
                         onChange={(e) => setSongText(e.target.value)}
+                        style={{ height: '50px' }}
                     />
-                </div>
 
-                <div className="col-md-6" style={{ maxHeight: '50vh', overflowY: 'auto', paddingLeft: '10px' }}>
-                    <h3>Strudel Editor</h3>
-                    <p>Strudel REPL:</p>
-                    <div id="editor" />
-                    <div id="output" />
-                </div>
-            </div>
+                    <h4 className="m-3 text-center">Controls</h4>
+                    <div className="d-flex justify-content-center gap-2 mb-3">
+                        <PlayButtons
+                            onPlay={() => { setState("playing"); handlePlay() }}
+                            onStop={() => { setState("stopped"); handleStop() }}
+                        />
+                    </div>
 
-            <div className="row mb-4">
-                <div className="col-md-4" style={{ paddingRight: '10px' }}>
-                    <h3>Controls</h3>
                     <DJControls
                         onVolumeChange={(e) => setVolume(parseFloat(e.target.value))} volume={volume}
                         onBPMChange={(e) => setBpm(e.target.value === "" ? "" : parseFloat(e.target.value))} bpm={bpm}
                         onBPSChange={(e) => setBps(e.target.value === "" ? "" : parseFloat(e.target.value))} bps={bps}
                         onBPMDivisionChange={(e) => setBpmDivision(e.target.value === "" ? "" : parseFloat(e.target.value))} bpmDivision={bpmDivision}
                         isAccordionOpen={isAccordionOpen} onAccordionChange={handleAccordion}
+                        drumsOn={drumsOn} onDrumChange={(e) => setDrumsOn({ ...drumsOn, drums: e.target.checked })} onDrum2Change={(e) => setDrumsOn({ ...drumsOn, drums2: e.target.checked })}
+
                     />
                 </div>
 
-                <div className="col-md-6" style={{ paddingLeft: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <PlayButtons onPlay={handlePlay} onStop={handleStop} />
+                <div className="col-md-6" style={{ maxHeight: '80vh', overflowY: 'auto', paddingLeft: '10px', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+                    <p className="mt-3">Strudel REPL:</p>
+                    <div style={{ flex: 1, overflowY: 'auto' }}>
+                        <div id="editor" />
+                        <div id="output" />
+                    </div>
                 </div>
             </div>
 
             <div className="row">
                 <div className="col-12">
-                    <canvas id="roll" style={{ width: '100%', height: '200px', backgroundColor: '#222' }} />
+                    <canvas id="roll" style={{ width: '100%', height: '200px'}} />
                 </div>
             </div>
 
