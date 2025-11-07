@@ -36,16 +36,19 @@ export default function StrudelDemo() {
         drums2: true
     });
 
+    // Process the output text on play
     const handlePlay = () => {
         let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
 
+    // Stop the strudel
     const handleStop = () => {
         globalEditor.stop()
     }
 
+    // Re-process the output text when volume or drums change
     useEffect(() => {
         if (state === "playing") {
             handlePlay();
@@ -59,6 +62,7 @@ export default function StrudelDemo() {
 
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
+    // Drum Accordion Toggle
     const handleAccordion = () => {
         setIsAccordionOpen(!isAccordionOpen);
     };
@@ -117,6 +121,7 @@ return (
 
         <div className="container-fluid">
             <div className="row mb-6">
+                {/* Preprocess Textbox and Controls */}
                 <div className="col-md-6" style={{ maxHeight: '100%', overflowY: 'auto', paddingRight: '10px', display: 'flex', flexDirection: 'column' }}>
                     <p className="mt-3">Preprocess Textbox:</p>
                     <PreprocessTextbox
@@ -125,6 +130,7 @@ return (
                         style={{ height: '50px' }}
                     />
 
+                    {/* Play Buttons */}
                     <h4 className="m-3 text-center">Controls</h4>
                     <div className="d-flex justify-content-center gap-2 mb-3">
                         <PlayButtons
@@ -133,6 +139,7 @@ return (
                         />
                     </div>
 
+                    {/* DJ Controls */}
                     <DJControls
                         onVolumeChange={(e) => setVolume(parseFloat(e.target.value))} volume={volume}
                         onBPMChange={(e) => setBpm(e.target.value === "" ? "" : parseFloat(e.target.value))} bpm={bpm}
@@ -144,6 +151,7 @@ return (
                     />
                 </div>
 
+                {/* Strudel REPL Box */}
                 <div className="col-md-6" style={{ maxHeight: '80vh', overflowY: 'auto', paddingLeft: '10px', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
                     <p className="mt-3">Strudel REPL:</p>
                     <div style={{ flex: 1, overflowY: 'auto' }}>

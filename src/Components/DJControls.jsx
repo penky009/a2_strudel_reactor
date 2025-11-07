@@ -1,6 +1,8 @@
 function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps, onBPMDivisionChange, bpmDivision, onAccordionChange, isAccordionOpen, drumsOn, onDrumChange, onDrum2Change }) {
     return (
-    <>
+        <>
+
+        {/* CPS Text Boxes */}
         <div className="input-group mb-3">
             <span className="input-group-text" id="cps_label">Set CPS (Cycles Per Second):</span>
                 <input type="text" className="form-control" placeholder="120" value={bpm} onChange={onBPMChange} />
@@ -8,11 +10,13 @@ function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps
                 <input type="text" className="form-control" placeholder="4" value={bpmDivision} onChange={onBPMDivisionChange} />
         </div>
 
+        {/* Volume Slider */}
         <div>
             <label htmlFor="volume_range" className="form-label">Volume: {volume * 100}%</label>
             <input className="form-range" type="range" id="volume_range" min="0" max="1" step="0.1" value={volume} onChange={onVolumeChange} />
         </div>
 
+        {/* Drum Effects Accordion */}
         <div className="mt-3 accordion" id="effectsAccordion">
             <div className="accordion-item">
                 <h2 className="accordion-header">
