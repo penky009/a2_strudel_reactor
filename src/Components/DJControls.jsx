@@ -13,28 +13,25 @@ function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps
             <input className="form-range" type="range" id="volume_range" min="0" max="1" step="0.1" value={volume} onChange={onVolumeChange} />
         </div>
 
-        <div className="col-md-4">
-            <div className="form-check">
-                    <input className="form-check-input" type="checkbox" name="drum_box" id="drum_box" checked={drumsOn.drums} onChange={onDrumChange} />
-                <label className="form-check-label" htmlFor="drum_box">
-                    Enable Drums
-                </label>
-            </div>
-            <div className="form-check">
-                <input className="form-check-input" type="checkbox" name="drum2_box" id="drum2_box" checked={drumsOn.drums2} onChange={onDrum2Change} />
-                <label className="form-check-label" htmlFor="drum2_box">
-                    Enable Drums2
-                </label>
-            </div>
-        </div>
-
         <div className="mt-3 accordion" id="effectsAccordion">
             <div className="accordion-item">
                 <h2 className="accordion-header">
-                    <button className={`accordion-button ${!isAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onAccordionChange}>Effects List</button>
-                </h2>
+                    <button className={`accordion-button ${!isAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onAccordionChange}>Drum Control</button>
+                    </h2>
                 {isAccordionOpen && (
                     <div className="accordion-body">
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" name="drum_box" id="drum_box" checked={drumsOn.drums} onChange={onDrumChange} />
+                            <label className="form-check-label" htmlFor="drum_box">
+                                Enable Drums
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" name="drum2_box" id="drum2_box" checked={drumsOn.drums2} onChange={onDrum2Change} />
+                            <label className="form-check-label" htmlFor="drum2_box">
+                                Enable Drums2
+                            </label>
+                        </div>
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" id="reverb" />
                             <label className="form-check-label" htmlFor="reverb">Reverb</label>
