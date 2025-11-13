@@ -36,9 +36,11 @@ export default function StrudelDemo() {
         drums2: true
     });
 
+    const [cpm, setCpm] = useState(35);
+
     // Process the output text on play
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn });
+        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -53,12 +55,8 @@ export default function StrudelDemo() {
         if (state === "playing") {
             handlePlay();
         }
-    }, [volume, drumsOn]);
+    }, [volume, drumsOn, cpm]);
 
-    const [bpm, setBpm] = useState(140);
-    const [bps, setBps] = useState(60);
-    const [bpmDivision, setBpmDivision] = useState(4);
-    const cps = bpm / bps / bpmDivision;
 
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
@@ -157,9 +155,7 @@ return (
                     {/* DJ Controls */}
                     <DJControls
                         onVolumeChange={(e) => setVolume(parseFloat(e.target.value))} volume={volume}
-                        onBPMChange={(e) => setBpm(e.target.value === "" ? "" : parseFloat(e.target.value))} bpm={bpm}
-                        onBPSChange={(e) => setBps(e.target.value === "" ? "" : parseFloat(e.target.value))} bps={bps}
-                        onBPMDivisionChange={(e) => setBpmDivision(e.target.value === "" ? "" : parseFloat(e.target.value))} bpmDivision={bpmDivision}
+                        onCPMChange={(e) => setCpm(e.target.value === "" ? "" : parseFloat(e.target.value))} cpm={cpm}
                         isAccordionOpen={isAccordionOpen} onAccordionChange={handleAccordion}
                         drumsOn={drumsOn} onDrumChange={(e) => setDrumsOn({ ...drumsOn, drums: e.target.checked })} onDrum2Change={(e) => setDrumsOn({ ...drumsOn, drums2: e.target.checked })}
 

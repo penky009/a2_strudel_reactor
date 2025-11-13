@@ -1,13 +1,11 @@
-function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps, onBPMDivisionChange, bpmDivision, onAccordionChange, isAccordionOpen, drumsOn, onDrumChange, onDrum2Change }) {
+function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onAccordionChange, isAccordionOpen, drumsOn, onDrumChange, onDrum2Change }) {
     return (
         <>
 
         {/* CPS Text Boxes */}
         <div className="input-group mb-3">
-            <span className="input-group-text" id="cps_label">Set CPS (Cycles Per Second):</span>
-                <input type="text" className="form-control" placeholder="120" value={bpm} onChange={onBPMChange} />
-                <input type="text" className="form-control" placeholder="60" value={bps} onChange={onBPSChange} />
-                <input type="text" className="form-control" placeholder="4" value={bpmDivision} onChange={onBPMDivisionChange} /> 
+            <span className="input-group-text" id="cps_label">CPM:</span>
+                <input type="number" className="form-control" placeholder="35" value={cpm} onChange={onCPMChange} min="1" />
         </div>
 
         {/* Volume Slider */}

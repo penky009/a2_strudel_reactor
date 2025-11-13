@@ -1,5 +1,5 @@
 
-export function Preprocess({ inputText, volume, drumsOn }) {
+export function Preprocess({ inputText, volume, drumsOn, cpm }) {
 
     // Change the volume tag
     let outputText = inputText;
@@ -11,6 +11,11 @@ export function Preprocess({ inputText, volume, drumsOn }) {
         const pattern = new RegExp(`\\b_?${setName}:`, "g");
         outputText = outputText.replace(pattern, drumsOn[setName] ? `${setName}:` : `_${setName}:`);
     });
+
+    // Change the CPM tag
+    outputText = outputText.replace(/setcps\([^)]+\)/gi, `setcpm(${cpm})`);
+    // outputText = outputText.replaceAll("{$CPM}", cpm)
+
 
     return outputText;
 }
