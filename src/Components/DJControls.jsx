@@ -7,7 +7,7 @@ function DJControls({ onVolumeChange, volume, onBPMChange, bpm, onBPSChange, bps
             <span className="input-group-text" id="cps_label">Set CPS (Cycles Per Second):</span>
                 <input type="text" className="form-control" placeholder="120" value={bpm} onChange={onBPMChange} />
                 <input type="text" className="form-control" placeholder="60" value={bps} onChange={onBPSChange} />
-                <input type="text" className="form-control" placeholder="4" value={bpmDivision} onChange={onBPMDivisionChange} />
+                <input type="text" className="form-control" placeholder="4" value={bpmDivision} onChange={onBPMDivisionChange} /> 
         </div>
 
         {/* Volume Slider */}

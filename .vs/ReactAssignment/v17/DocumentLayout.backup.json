@@ -1,0 +1,125 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|c:\\users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|solutionrelative:src\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|c:\\users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\components\\djcontrols.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|solutionrelative:src\\components\\djcontrols.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|c:\\users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\utilities\\preprocessinglogic.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|solutionrelative:src\\utilities\\preprocessinglogic.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|c:\\users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\components\\preprocesstextbox.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|solutionrelative:src\\components\\preprocesstextbox.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|c:\\users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\components\\playbuttons.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{1C538C04-AF09-44AC-9272-6DDEAA808F25}|ReactAssignment.esproj|solutionrelative:src\\components\\playbuttons.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 177,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlayButtons.jsx",
+              "DocumentMoniker": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\Components\\PlayButtons.jsx",
+              "RelativeDocumentMoniker": "src\\Components\\PlayButtons.jsx",
+              "ToolTip": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\Components\\PlayButtons.jsx",
+              "RelativeToolTip": "src\\Components\\PlayButtons.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAA+wAQAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-06T03:49:54.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PreprocessTextbox.jsx",
+              "DocumentMoniker": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\Components\\PreprocessTextbox.jsx",
+              "RelativeDocumentMoniker": "src\\Components\\PreprocessTextbox.jsx",
+              "ToolTip": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\Components\\PreprocessTextbox.jsx",
+              "RelativeToolTip": "src\\Components\\PreprocessTextbox.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-06T03:31:05.91Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PreprocessingLogic.jsx",
+              "DocumentMoniker": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\Utilities\\PreprocessingLogic.jsx",
+              "RelativeDocumentMoniker": "src\\Utilities\\PreprocessingLogic.jsx",
+              "ToolTip": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\Utilities\\PreprocessingLogic.jsx",
+              "RelativeToolTip": "src\\Utilities\\PreprocessingLogic.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-06T02:30:27.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "App.js",
+              "DocumentMoniker": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\App.js",
+              "RelativeDocumentMoniker": "src\\App.js",
+              "ToolTip": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\App.js",
+              "RelativeToolTip": "src\\App.js",
+              "ViewState": "AgIAAIYAAAAAAAAAAAAEwJoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-10-29T10:11:31.309Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DJControls.jsx",
+              "DocumentMoniker": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\Components\\DJControls.jsx",
+              "RelativeDocumentMoniker": "src\\Components\\DJControls.jsx",
+              "ToolTip": "C:\\Users\\kpeng\\source\\repos\\a2_strudel_reactor\\src\\Components\\DJControls.jsx",
+              "RelativeToolTip": "src\\Components\\DJControls.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-03T06:47:48.728Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

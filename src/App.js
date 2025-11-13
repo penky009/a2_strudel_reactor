@@ -13,7 +13,7 @@ import DJControls from './Components/DJControls';
 import PlayButtons from './Components/PlayButtons';
 // import ProcButtons from './Components/ProcButtons';
 import PreprocessTextbox from './Components/PreprocessTextbox';
-import { Preprocess } from './Utilities/PreprocessingLogic';
+import { Preprocess } from './utilities/PreprocessingLogic';
 
 let globalEditor = null;
 
@@ -121,17 +121,32 @@ return (
 
         <div className="container-fluid">
             <div className="row mb-6">
-                {/* Preprocess Textbox and Controls */}
-                <div className="col-md-6" style={{ maxHeight: '100%', overflowY: 'auto', paddingRight: '10px', display: 'flex', flexDirection: 'column' }}>
-                    <p className="mt-3">Preprocess Textbox:</p>
-                    <PreprocessTextbox
-                        defaultValue={songText}
-                        onChange={(e) => setSongText(e.target.value)}
-                        style={{ height: '50px' }}
-                    />
+                <div style={{ width: '50%', paddingRight: '10px', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    {/* Preprocess Textbox */}
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <p className="mt-3" style={{ flexShrink: 0, marginBottom: '5px' }}>Preprocess Textbox:</p>
+                        <div style={{ flex: 1, overflowY: 'auto' }}>
+                            <PreprocessTextbox
+                                defaultValue={songText}
+                                onChange={(e) => setSongText(e.target.value)}
+                                style={{ height: '50px' }}
+                            />
+                        </div>
+                    </div>
+                    {/* Strudel REPL */}
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <p className="mt-3" style={{ flexShrink: 0, marginBottom: '5px' }}>Strudel REPL:</p>
+                        <div style={{ height: '50vh', overflowY: 'auto' }}>
+                            <div id="editor" />
+                            <div id="output" />
+                        </div>
+                    </div>
+                </div>
 
-                    {/* Play Buttons */}
+                {/* Controls */}
+                <div className="col-md-6" style={{ height: '100%', overflowY: 'auto', paddingLeft: '10px', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
                     <h4 className="m-3 text-center">Controls</h4>
+                    {/* Play Buttons */}
                     <div className="d-flex justify-content-center gap-2 mb-3">
                         <PlayButtons
                             onPlay={() => { setState("playing"); handlePlay() }}
@@ -150,20 +165,11 @@ return (
 
                     />
                 </div>
-
-                {/* Strudel REPL Box */}
-                <div className="col-md-6" style={{ maxHeight: '80vh', overflowY: 'auto', paddingLeft: '10px', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
-                    <p className="mt-3">Strudel REPL:</p>
-                    <div style={{ flex: 1, overflowY: 'auto' }}>
-                        <div id="editor" />
-                        <div id="output" />
-                    </div>
-                </div>
             </div>
 
-            <div className="row">
+            <div className="row mt-2">
                 <div className="col-12">
-                    <canvas id="roll" style={{ width: '100%', height: '200px'}} />
+                    <canvas id="roll" style={{ width: '100%', height: '200px', backgroundColor: '#222' }} />
                 </div>
             </div>
 
