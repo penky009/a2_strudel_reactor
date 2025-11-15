@@ -1,4 +1,4 @@
-import './App.css';
+﻿import './App.css';
 import { useEffect, useRef, useState } from "react";
 import { StrudelMirror } from '@strudel/codemirror';
 import { evalScope } from '@strudel/core';
@@ -14,6 +14,7 @@ import PlayButtons from './Components/PlayButtons';
 // import ProcButtons from './Components/ProcButtons';
 import PreprocessTextbox from './Components/PreprocessTextbox';
 import { Preprocess } from './utilities/PreprocessingLogic';
+//import D3Graph from './Components/D3Graph';
 
 let globalEditor = null;
 
@@ -65,6 +66,29 @@ export default function StrudelDemo() {
         setIsAccordionOpen(!isAccordionOpen);
     };
 
+    const [note, setNote] = useState("");
+    const [notesArray, setNotesArray] = useState([]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const noteData = getD3Data();
+            // TODO: split note data to get only {note name}
+            if (noteData) {
+                const newNote = noteData[0];
+                setNote(newNote);
+            }
+        }, 100);
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        let tempArray = [...notesArray, note];
+        if (tempArray.length > 12) {
+            tempArray.shift();
+        }
+        setNotesArray(tempArray);
+    }, [note]);
+            
 
 useEffect(() => {
 
@@ -163,6 +187,12 @@ return (
                 </div>
             </div>
 
+            {/* Test Notes from D3 Data */}
+            <div>
+                <h4>Played Notes: {note}</h4>
+            </div>
+
+            {/* Piano Roll Canvas */}
             <div className="row mt-2">
                 <div className="col-12">
                     <canvas id="roll" style={{ width: '100%', height: '200px', backgroundColor: '#222' }} />
