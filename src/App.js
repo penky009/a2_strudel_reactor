@@ -14,7 +14,7 @@ import PlayButtons from './Components/PlayButtons';
 // import ProcButtons from './Components/ProcButtons';
 import PreprocessTextbox from './Components/PreprocessTextbox';
 import { Preprocess } from './utilities/PreprocessingLogic';
-//import D3Graph from './Components/D3Graph';
+import D3Graph from './Components/D3Graph';
 
 let globalEditor = null;
 
@@ -65,32 +65,6 @@ export default function StrudelDemo() {
     const handleAccordion = () => {
         setIsAccordionOpen(!isAccordionOpen);
     };
-
-    const [note, setNote] = useState("");
-    const [notesArray, setNotesArray] = useState([]);
-
-    //TODO: Log to String function
-
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const noteData = getD3Data();
-            // TODO: split note data to get only {note name}
-            if (noteData && noteData.length > 0) {
-                const noteName = String(noteData[noteData.length - 1]);
-                setNote(noteName);
-            }
-        }, 100);
-        return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {
-        let tempArray = [...notesArray, note];
-        if (tempArray.length > 12) {
-            tempArray.shift();
-        }
-        setNotesArray(tempArray);
-    }, [note]);
             
 
 useEffect(() => {
@@ -190,10 +164,7 @@ return (
                 </div>
             </div>
 
-            {/* Test Notes from D3 Data */}
-            <div>
-                <h4>Played Notes: {note}</h4>
-            </div>
+            <D3Graph />
 
             {/* Piano Roll Canvas */}
             <div className="row mt-2">
