@@ -69,13 +69,16 @@ export default function StrudelDemo() {
     const [note, setNote] = useState("");
     const [notesArray, setNotesArray] = useState([]);
 
+    //TODO: Log to String function
+
+
     useEffect(() => {
         const interval = setInterval(() => {
             const noteData = getD3Data();
             // TODO: split note data to get only {note name}
-            if (noteData) {
-                const newNote = noteData[0];
-                setNote(newNote);
+            if (noteData && noteData.length > 0) {
+                const noteName = String(noteData[noteData.length - 1]);
+                setNote(noteName);
             }
         }, 100);
         return () => clearInterval(interval);
