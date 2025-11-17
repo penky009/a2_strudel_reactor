@@ -1,5 +1,5 @@
 
-export function Preprocess({ inputText, volume, drumsOn, cpm }) {
+export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf }) {
 
     // Change the volume tag
     let outputText = inputText;
@@ -16,6 +16,11 @@ export function Preprocess({ inputText, volume, drumsOn, cpm }) {
     outputText = outputText.replace(/setcps\([^)]+\)/gi, `setcpm(${cpm})`);
     // outputText = outputText.replaceAll("{$CPM}", cpm)
 
+    // Change the drum1 LPF tag
+    outputText = outputText.replace(/(drums:[^]*?)\.lpf\([^)]+\)/gi, `$1.lpf(${drum1lpf})`);
+
+    // Change the drum2 HPF tag
+    outputText = outputText.replace(/(drums2:[^]*?)\.hpf\([^)]+\)/gi, `$1.hpf(${drum2hpf})`);
 
     return outputText;
 }

@@ -28,7 +28,7 @@ export default function StrudelDemo() {
 
     const [songText, setSongText] = useState(stranger_tune)
 
-    const [volume, setVolume] = useState(1.0);
+    const [volume, setVolume] = useState(0.5);
 
     const [state, setState] = useState("stopped");
 
@@ -39,9 +39,13 @@ export default function StrudelDemo() {
 
     const [cpm, setCpm] = useState(35);
 
+    const [drum1lpf, setDrum1lpf] = useState(7000);
+
+    const [drum2hpf, setDrum2hpf] = useState(1000);
+
     // Process the output text on play
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm });
+        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -56,16 +60,15 @@ export default function StrudelDemo() {
         if (state === "playing") {
             handlePlay();
         }
-    }, [volume, drumsOn, cpm]);
+    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf]);
 
+    // Drum DrumAccordion Toggle
+    const [isDrumAccordionOpen, setIsDrumAccordionOpen] = useState(false);
 
-    const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-
-    // Drum Accordion Toggle
-    const handleAccordion = () => {
-        setIsAccordionOpen(!isAccordionOpen);
+    const handleDrumAccordion = () => {
+        setIsDrumAccordionOpen(!isDrumAccordionOpen);
     };
-            
+
 
 useEffect(() => {
 
@@ -157,9 +160,10 @@ return (
                     <DJControls
                         onVolumeChange={(e) => setVolume(parseFloat(e.target.value))} volume={volume}
                         onCPMChange={(e) => setCpm(e.target.value === "" ? "" : parseFloat(e.target.value))} cpm={cpm}
-                        isAccordionOpen={isAccordionOpen} onAccordionChange={handleAccordion}
+                        isDrumAccordionOpen={isDrumAccordionOpen} onDrumAccordionChange={handleDrumAccordion}
                         drumsOn={drumsOn} onDrumChange={(e) => setDrumsOn({ ...drumsOn, drums: e.target.checked })} onDrum2Change={(e) => setDrumsOn({ ...drumsOn, drums2: e.target.checked })}
-
+                        drum1lpf={drum1lpf} onDrum1LpfChange={(e) => setDrum1lpf(parseFloat(e.target.value))} 
+                        drum2hpf={drum2hpf} onDrum2HpfChange={(e) => setDrum2hpf(parseFloat(e.target.value))}
                     />
                 </div>
             </div>
