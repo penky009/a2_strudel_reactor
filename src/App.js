@@ -45,9 +45,11 @@ export default function StrudelDemo() {
 
     const [arpOn, setArpOn] = useState(true);
 
+    const [selectedArp, setSelectedArp] = useState("arp1");
+
     // Process the output text on play
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn });
+        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -62,7 +64,7 @@ export default function StrudelDemo() {
         if (state === "playing") {
             handlePlay();
         }
-    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn]);
+    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp]);
 
     // Drum Accordion Toggle
     const [isDrumAccordionOpen, setIsDrumAccordionOpen] = useState(false);
@@ -176,6 +178,7 @@ return (
                         drum2hpf={drum2hpf} onDrum2HpfChange={(e) => setDrum2hpf(parseFloat(e.target.value))}
                         isArpAccordionOpen={isArpAccordionOpen} onArpAccordionChange={handleArpAccordion}
                         arpOn={arpOn} onArpChange={(e) => setArpOn(e.target.checked)}
+                        selectedArp={selectedArp} onSelectedArpChange={(e) => setSelectedArp(e.target.value)}
                     />
                 </div>
             </div>

@@ -1,5 +1,5 @@
 
-export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn }) {
+export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp }) {
 
     // Change the volume tag
     let outputText = inputText;
@@ -28,6 +28,14 @@ export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf
     } else {
         outputText = outputText.replace("main_arp:", "_main_arp:");
     }
+
+    if (selectedArp === "arp1") {
+        outputText = outputText.replace(/(main_arp:[\s\S]*?)pick\([a-zA-Z0-9_]+,/g, `$1pick(arpeggiator1,`);
+    } else {
+        outputText = outputText.replace(/(main_arp:[\s\S]*?)pick\([a-zA-Z0-9_]+,/g, `$1pick(arpeggiator2,`);
+    }
+
+
 
     return outputText;
 }

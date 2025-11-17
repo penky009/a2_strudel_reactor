@@ -1,4 +1,4 @@
-function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionChange, isDrumAccordionOpen, drumsOn, onDrumChange, onDrum2Change, drum1lpf, onDrum1LpfChange, drum2hpf, onDrum2HpfChange, onArpAccordionChange, isArpAccordionOpen, arpOn, onArpChange }) {
+function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionChange, isDrumAccordionOpen, drumsOn, onDrumChange, onDrum2Change, drum1lpf, onDrum1LpfChange, drum2hpf, onDrum2HpfChange, onArpAccordionChange, isArpAccordionOpen, arpOn, onArpChange, selectedArp, onSelectedArpChange }) {
     return (
         <>
 
@@ -68,6 +68,20 @@ function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionC
                                 checked={arpOn} onChange={onArpChange} />
                             <label className="form-check-label" htmlFor="arp_box">
                                 Enable Arpeggiator
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="arp_radio" id="arp1_radio" value="arp1"
+                            checked={selectedArp === "arp1"} onChange={onSelectedArpChange} />
+                            <label className="form-check-label" htmlFor="arp1_radio">
+                                Arpeggiator1
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="arp_radio" id="arp2_radio" value="arp2"
+                            checked={selectedArp === "arp2"} onChange={onSelectedArpChange} />
+                            <label className="form-check-label" htmlFor="arp2_radio">
+                                Arpeggiator2
                             </label>
                         </div>
                     </div>
