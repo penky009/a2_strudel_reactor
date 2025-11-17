@@ -1,5 +1,5 @@
 
-export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf }) {
+export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn }) {
 
     // Change the volume tag
     let outputText = inputText;
@@ -21,6 +21,13 @@ export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf
 
     // Change the drum2 HPF tag
     outputText = outputText.replace(/(drums2:[^]*?)\.hpf\([^)]+\)/gi, `$1.hpf(${drum2hpf})`);
+
+    // Change the arpeggiator tag
+    if (arpOn) {
+        outputText = outputText.replace("_main_arp:", "main_arp:");
+    } else {
+        outputText = outputText.replace("main_arp:", "_main_arp:");
+    }
 
     return outputText;
 }

@@ -1,4 +1,4 @@
-function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionChange, isDrumAccordionOpen, drumsOn, onDrumChange, onDrum2Change, drum1lpf, onDrum1LpfChange, drum2hpf, onDrum2HpfChange }) {
+function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionChange, isDrumAccordionOpen, drumsOn, onDrumChange, onDrum2Change, drum1lpf, onDrum1LpfChange, drum2hpf, onDrum2HpfChange, onArpAccordionChange, isArpAccordionOpen, arpOn, onArpChange }) {
     return (
         <>
 
@@ -55,6 +55,26 @@ function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionC
                 )}
             </div>
         </div>
+        {/* Arpeggiator Control Accordion */}
+        <div className="mt-3 accordion" id="arpAccordion">
+            <div className="accordion-item">
+                <h2 className="accordion-header">
+                    <button className={`accordion-button ${!isArpAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onArpAccordionChange}>Arpeggiator Control</button>
+                </h2>
+                {isArpAccordionOpen && (
+                    <div className="accordion-body">
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" name="arp_box" id="arp_box"
+                                checked={arpOn} onChange={onArpChange} />
+                            <label className="form-check-label" htmlFor="arp_box">
+                                Enable Arpeggiator
+                            </label>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+
 
     </>
     );

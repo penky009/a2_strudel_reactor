@@ -43,9 +43,11 @@ export default function StrudelDemo() {
 
     const [drum2hpf, setDrum2hpf] = useState(1000);
 
+    const [arpOn, setArpOn] = useState(true);
+
     // Process the output text on play
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf });
+        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -60,13 +62,21 @@ export default function StrudelDemo() {
         if (state === "playing") {
             handlePlay();
         }
-    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf]);
+    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn]);
 
-    // Drum DrumAccordion Toggle
+    // Drum Accordion Toggle
     const [isDrumAccordionOpen, setIsDrumAccordionOpen] = useState(false);
 
     const handleDrumAccordion = () => {
         setIsDrumAccordionOpen(!isDrumAccordionOpen);
+    };
+
+
+    // Arppegiator Accordion Toggle
+    const [isArpAccordionOpen, setIsArpAccordionOpen] = useState(false);
+
+    const handleArpAccordion = () => {
+        setIsArpAccordionOpen(!isArpAccordionOpen);
     };
 
 
@@ -162,8 +172,10 @@ return (
                         onCPMChange={(e) => setCpm(e.target.value === "" ? "" : parseFloat(e.target.value))} cpm={cpm}
                         isDrumAccordionOpen={isDrumAccordionOpen} onDrumAccordionChange={handleDrumAccordion}
                         drumsOn={drumsOn} onDrumChange={(e) => setDrumsOn({ ...drumsOn, drums: e.target.checked })} onDrum2Change={(e) => setDrumsOn({ ...drumsOn, drums2: e.target.checked })}
-                        drum1lpf={drum1lpf} onDrum1LpfChange={(e) => setDrum1lpf(parseFloat(e.target.value))} 
+                        drum1lpf={drum1lpf} onDrum1LpfChange={(e) => setDrum1lpf(parseFloat(e.target.value))}
                         drum2hpf={drum2hpf} onDrum2HpfChange={(e) => setDrum2hpf(parseFloat(e.target.value))}
+                        isArpAccordionOpen={isArpAccordionOpen} onArpAccordionChange={handleArpAccordion}
+                        arpOn={arpOn} onArpChange={(e) => setArpOn(e.target.checked)}
                     />
                 </div>
             </div>
