@@ -1,4 +1,4 @@
-function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionChange, isDrumAccordionOpen, drumsOn, onDrumChange, onDrum2Change, drum1lpf, onDrum1LpfChange, drum2hpf, onDrum2HpfChange, onArpAccordionChange, isArpAccordionOpen, arpOn, onArpChange, selectedArp, onSelectedArpChange }) {
+function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionChange, isDrumAccordionOpen, drumsOn, onDrumChange, onDrum2Change, drum1lpf, onDrum1LpfChange, drum2hpf, onDrum2HpfChange, onArpAccordionChange, isArpAccordionOpen, arpOn, onArpChange, selectedArp, onSelectedArpChange, d3Graph, onD3GraphChange }) {
     return (
         <>
 
@@ -35,6 +35,7 @@ function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionC
                                     <label htmlFor="drum1_lpf_range" className="form-label">LPF: {drum1lpf}</label>
                                     <input className="form-range" type="range" id="drum1_lpf_range" min="0" max="10000" step="100" value={drum1lpf} onChange={onDrum1LpfChange} />
                                 </div>
+                                )}
                             </div>
 
                             <div className="col-6">
@@ -63,26 +64,48 @@ function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionC
                 </h2>
                 {isArpAccordionOpen && (
                     <div className="accordion-body">
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" name="arp_box" id="arp_box"
-                                checked={arpOn} onChange={onArpChange} />
-                            <label className="form-check-label" htmlFor="arp_box">
-                                Enable Arpeggiator
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="arp_radio" id="arp1_radio" value="arp1"
-                            checked={selectedArp === "arp1"} onChange={onSelectedArpChange} />
-                            <label className="form-check-label" htmlFor="arp1_radio">
-                                Arpeggiator1
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="arp_radio" id="arp2_radio" value="arp2"
-                            checked={selectedArp === "arp2"} onChange={onSelectedArpChange} />
-                            <label className="form-check-label" htmlFor="arp2_radio">
-                                Arpeggiator2
-                            </label>
+                        <div className="row">
+                            <div className="col-6 border-end">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" name="arp_box" id="arp_box"
+                                        checked={arpOn} onChange={onArpChange} />
+                                    <label className="form-check-label" htmlFor="arp_box">
+                                        Enable Arpeggiator
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" name="arp_box" id="arp_box"
+                                        checked={d3Graph} onChange={onD3GraphChange} />
+                                    <label className="form-check-label" htmlFor="arp_box">
+                                        Enable Arpeggiator D3 Graph
+                                    </label>
+                                </div>
+                                {d3Graph && (
+                                    <div className="alert alert-info" role="alert">
+                                        <div className="text-center">
+                                            <strong>D3 Graph Enabled!</strong>
+                                            <p>Scroll down to see the dynamic arpeggiator graph!</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="col-6">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="radio" name="arp_radio" id="arp1_radio" value="arp1"
+                                        checked={selectedArp === "arp1"} onChange={onSelectedArpChange} />
+                                    <label className="form-check-label" htmlFor="arp1_radio">
+                                        Arpeggiator1
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <input className="form-check-input" type="radio" name="arp_radio" id="arp2_radio" value="arp2"
+                                        checked={selectedArp === "arp2"} onChange={onSelectedArpChange} />
+                                    <label className="form-check-label" htmlFor="arp2_radio">
+                                        Arpeggiator2
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}

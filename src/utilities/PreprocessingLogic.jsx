@@ -1,5 +1,5 @@
 
-export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp }) {
+export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn }) {
 
     // Change the volume tag
     let outputText = inputText;
@@ -35,6 +35,12 @@ export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf
         outputText = outputText.replace(/(main_arp:[\s\S]*?)pick\([a-zA-Z0-9_]+,/g, `$1pick(arpeggiator2,`);
     }
 
+    // Enable d3 graphing
+    if (d3GraphOn) {
+        outputText = outputText.replace(/(main_arp:[\s\S]*?)(\.\w+\(.*?\))/gm, '$1$2.log()');
+    } else {
+        return outputText;
+    }
 
 
     return outputText;

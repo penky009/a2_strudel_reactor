@@ -47,9 +47,12 @@ export default function StrudelDemo() {
 
     const [selectedArp, setSelectedArp] = useState("arp1");
 
+    const [d3GraphOn, setD3GraphOn] = useState(false);
+
+
     // Process the output text on play
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp });
+        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -64,7 +67,7 @@ export default function StrudelDemo() {
         if (state === "playing") {
             handlePlay();
         }
-    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp]);
+    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn]);
 
     // Drum Accordion Toggle
     const [isDrumAccordionOpen, setIsDrumAccordionOpen] = useState(false);
@@ -179,6 +182,7 @@ return (
                         isArpAccordionOpen={isArpAccordionOpen} onArpAccordionChange={handleArpAccordion}
                         arpOn={arpOn} onArpChange={(e) => setArpOn(e.target.checked)}
                         selectedArp={selectedArp} onSelectedArpChange={(e) => setSelectedArp(e.target.value)}
+                        d3Graph={d3GraphOn} onD3GraphChange={(e) => setD3GraphOn(e.target.checked)}
                     />
                 </div>
             </div>
