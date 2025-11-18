@@ -15,7 +15,7 @@ import PlayButtons from './Components/PlayButtons';
 import PreprocessTextbox from './Components/PreprocessTextbox';
 import { Preprocess } from './utilities/PreprocessingLogic';
 import D3Graph from './Components/D3Graph';
-import { select } from 'd3';
+
 
 let globalEditor = null;
 
@@ -27,37 +27,38 @@ export default function StrudelDemo() {
 
     const hasRun = useRef(false);
 
+    // State for default song text
     const [songText, setSongText] = useState(stranger_tune)
-
+    // State for volume
     const [volume, setVolume] = useState(0.5);
-
+    // State for playback, stopped/playing
     const [state, setState] = useState("stopped");
-
+    // State for Drums on/off
     const [drumsOn, setDrumsOn] = useState({
         drums: true,
         drums2: true
     });
-
+    // State for Cycles Per Minute
     const [cpm, setCpm] = useState(35);
-
+    // State for Drum1 Low Pass Filter
     const [drum1lpf, setDrum1lpf] = useState(7000);
-
+    // State for Drum2 High Pass Filter
     const [drum2hpf, setDrum2hpf] = useState(1000);
-
+    // State for Arpeggiattor on/off
     const [arpOn, setArpOn] = useState(true);
-
+    // State for selected Arpeggiator 1 or 2
     const [selectedArp, setSelectedArp] = useState("arp1");
-
+    // State for D3 Graph on/off
     const [d3GraphOn, setD3GraphOn] = useState(false);
-
+    // State for Bass on/off
     const [bassOn, setBassOn] = useState(true);
-
+    // State for Bass Low Pass Filter
     const [bassLpf, setBassLpf] = useState(700);
-
+    // State for selected Bass, supersaw/square/sawtooth
     const [selectedBass, setSelectedBass] = useState("supersaw");
 
 
-    // Process the output text on play
+    // Process the output text and update the strudel when playing
     const handlePlay = () => {
         let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn, bassOn, bassLpf, selectedBass });
         globalEditor.setCode(outputText);
@@ -76,29 +77,28 @@ export default function StrudelDemo() {
         }
     }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn, bassOn, bassLpf, selectedBass]);
 
-    // Drum Accordion Toggle
+    // State for Drum Accordion Toggle, true/false
     const [isDrumAccordionOpen, setIsDrumAccordionOpen] = useState(false);
-
     const handleDrumAccordion = () => {
         setIsDrumAccordionOpen(!isDrumAccordionOpen);
     };
 
 
-    // Arppegiator Accordion Toggle
+    // State for Arppegiator Accordion Toggle, true/false
     const [isArpAccordionOpen, setIsArpAccordionOpen] = useState(false);
-
     const handleArpAccordion = () => {
         setIsArpAccordionOpen(!isArpAccordionOpen);
     };
 
 
-    // Bassline Accordion Toggle
+    // State for Bassline Accordion Toggle, true/false
     const [isBassAccordionOpen, setIsBassAccordionOpen] = useState(false);
-
     const handleBassAccordion = () => {
         setIsBassAccordionOpen(!isBassAccordionOpen);
     }
 
+// Strudel initialiser 
+// Removed canvas piano roll
 useEffect(() => {
 
     if (!hasRun.current) {
@@ -106,20 +106,12 @@ useEffect(() => {
         console_monkey_patch();
         hasRun.current = true;
         //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
-            //init canvas
-            const canvas = document.getElementById('roll');
-            canvas.width = canvas.width * 2;
-            canvas.height = canvas.height * 2;
-            const drawContext = canvas.getContext('2d');
-            const drawTime = [-2, 2]; // time window of drawn haps
 
             globalEditor = new StrudelMirror({
                 defaultOutput: webaudioOutput,
                 getTime: () => getAudioContext().currentTime,
                 transpiler,
                 root: document.getElementById('editor'),
-                drawTime,
-                onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
                 prebake: async () => {
                     initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
                     const loadModules = evalScope(
@@ -132,13 +124,11 @@ useEffect(() => {
                     await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
                 },
             });
-            
-        document.getElementById('proc').value = songText;
-        //SetupButtons()
-        //Proc()    
+
+        // Set default song text in the strudel editor
+        document.getElementById('proc').value = songText;  
         globalEditor.setCode(songText);
     }
-
 
 }, [songText]);
 
@@ -205,14 +195,8 @@ return (
                 </div>
             </div>
 
+            {/* D3 Graph Box */}
             <D3Graph />
-
-            {/* Piano Roll Canvas */}
-            <div className="row mt-2">
-                <div className="col-12">
-                    <canvas id="roll" style={{ width: '100%', height: '200px', backgroundColor: '#222' }} />
-                </div>
-            </div>
 
         </div>
     </main>
