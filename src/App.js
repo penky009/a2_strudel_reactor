@@ -78,21 +78,21 @@ export default function StrudelDemo() {
     }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn, bassOn, bassLpf, selectedBass]);
 
     // State for Drum Accordion Toggle, true/false
-    const [isDrumAccordionOpen, setIsDrumAccordionOpen] = useState(false);
+    const [isDrumAccordionOpen, setIsDrumAccordionOpen] = useState(true);
     const handleDrumAccordion = () => {
         setIsDrumAccordionOpen(!isDrumAccordionOpen);
     };
 
 
     // State for Arppegiator Accordion Toggle, true/false
-    const [isArpAccordionOpen, setIsArpAccordionOpen] = useState(false);
+    const [isArpAccordionOpen, setIsArpAccordionOpen] = useState(true);
     const handleArpAccordion = () => {
         setIsArpAccordionOpen(!isArpAccordionOpen);
     };
 
 
     // State for Bassline Accordion Toggle, true/false
-    const [isBassAccordionOpen, setIsBassAccordionOpen] = useState(false);
+    const [isBassAccordionOpen, setIsBassAccordionOpen] = useState(true);
     const handleBassAccordion = () => {
         setIsBassAccordionOpen(!isBassAccordionOpen);
     }

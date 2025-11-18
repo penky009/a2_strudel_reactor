@@ -25,11 +25,13 @@ function D3Graph() {
 
     // Update the array of notes for every note change
     useEffect(() => {
-        let tempArray = [...notesArray, note];
-        if (tempArray.length > 12) {
-            tempArray.shift();
+        if (note !== "") {
+            let tempArray = [...notesArray, note];
+            if (tempArray.length > 12) {
+                tempArray.shift();
+            }
+            setNotesArray(tempArray);
         }
-        setNotesArray(tempArray);
     }, [note]);
 
     // D3 Graph creation
@@ -40,10 +42,10 @@ function D3Graph() {
         svg.selectAll("*").remove();
 
         // Find width and height of the 'svg' element
-        let w = svg.node().getBoundingClientRect().width
-        let h = svg.node().getBoundingClientRect().height
+        let w = svg.node().getBoundingClientRect().width - 40;
+        let h = svg.node().getBoundingClientRect().height - 5;
         const barMargin = 10;
-        const barWidth = w / notesArray.length
+        const barWidth = w / notesArray.length;
 
         // y-Axis scale set to the arpeggiator's notes
         let yScale = d3.scaleBand()
@@ -57,26 +59,50 @@ function D3Graph() {
         // New data point for each note
         let newBarGroups = barGroups.enter()
             .append('g')
-            .attr('transform', (d, i) => `translate(${i * barWidth}, 0)`);
+            .attr('transform', (d, i) => `translate(${i * barWidth + 30}, 0)`);
+
+        // Add y-axis note labels
+        let yAxis = d3.axisLeft(yScale);
+        svg.append('g')
+            .classed('axis y', true)
+            .attr('transform', 'translate(30,0)')
+            .call(yAxis);
+
+        // Customer colours for each note
+        const noteColours = {
+            "d5": "red",
+            "bb4": "red",
+            "g4": "red",
+            "d4": "orange",
+            "c4": "yellow",
+            "bb3": "yellowgreen",
+            "g3": "green",
+            "f3": "lightblue",
+            "eb3": "blue",
+            "d3": "blueviolet",
+            "c3": "purple",
+            "g2": "violet",
+            "f2": "indigo",
+            "eb2": "indigo",
+            "bb2": "darkblue"
+        };
+
 
         // Draw a rectangle for each new data point
         newBarGroups
             .append('rect')
             .attr('x', 0)
             .attr('y', d => yScale(d))
-            .attr('width', 5)
+            .attr('width', 20)
             .attr('height', yScale.bandwidth())
-            .attr('fill', 'black');
+            .attr('fill', d => noteColours[d]);
+
 
     }, [notesArray]);
 
     return (
-        <div className="container m-2">
-            <h4>Arppegiator Note: {note}</h4>
-
-            <div className="row">
-                <svg width="100%" height="400px" className="border"></svg>
-            </div>
+        <div className="row justify-content-center m-5">
+            <svg width="100%" height="400px" className="border"></svg>
         </div>
     )
 }
