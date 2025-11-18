@@ -15,6 +15,7 @@ import PlayButtons from './Components/PlayButtons';
 import PreprocessTextbox from './Components/PreprocessTextbox';
 import { Preprocess } from './utilities/PreprocessingLogic';
 import D3Graph from './Components/D3Graph';
+import { select } from 'd3';
 
 let globalEditor = null;
 
@@ -49,10 +50,16 @@ export default function StrudelDemo() {
 
     const [d3GraphOn, setD3GraphOn] = useState(false);
 
+    const [bassOn, setBassOn] = useState(true);
+
+    const [bassLpf, setBassLpf] = useState(700);
+
+    const [selectedBass, setSelectedBass] = useState("supersaw");
+
 
     // Process the output text on play
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn });
+        let outputText = Preprocess({ inputText: songText, volume: volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn, bassOn, bassLpf, selectedBass });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -62,12 +69,12 @@ export default function StrudelDemo() {
         globalEditor.stop()
     }
 
-    // Re-process the output text when volume or drums change
+    // Re-process the output text when instrument controls change
     useEffect(() => {
         if (state === "playing") {
             handlePlay();
         }
-    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn]);
+    }, [volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn, bassOn, bassLpf, selectedBass]);
 
     // Drum Accordion Toggle
     const [isDrumAccordionOpen, setIsDrumAccordionOpen] = useState(false);
@@ -84,6 +91,13 @@ export default function StrudelDemo() {
         setIsArpAccordionOpen(!isArpAccordionOpen);
     };
 
+
+    // Bassline Accordion Toggle
+    const [isBassAccordionOpen, setIsBassAccordionOpen] = useState(false);
+
+    const handleBassAccordion = () => {
+        setIsBassAccordionOpen(!isBassAccordionOpen);
+    }
 
 useEffect(() => {
 
@@ -183,6 +197,10 @@ return (
                         arpOn={arpOn} onArpChange={(e) => setArpOn(e.target.checked)}
                         selectedArp={selectedArp} onSelectedArpChange={(e) => setSelectedArp(e.target.value)}
                         d3Graph={d3GraphOn} onD3GraphChange={(e) => setD3GraphOn(e.target.checked)}
+                        isBassAccordionOpen={isBassAccordionOpen} onBassAccordionChange={handleBassAccordion}
+                        bassOn={bassOn} onBassChange={(e) => setBassOn(e.target.checked)}
+                        bassLpf={bassLpf} onBassLpfChange={(e) => setBassLpf(parseFloat(e.target.value))}
+                        selectedBass={selectedBass} onSelectedBassChange={(e) => setSelectedBass(e.target.value)}
                     />
                 </div>
             </div>

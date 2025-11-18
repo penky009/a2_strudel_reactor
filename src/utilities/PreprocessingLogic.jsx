@@ -1,5 +1,5 @@
 
-export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn }) {
+export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn, bassOn, bassLpf, selectedBass }) {
 
     // Change the volume tag
     let outputText = inputText;
@@ -38,10 +38,20 @@ export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf
     // Enable d3 graphing
     if (d3GraphOn) {
         outputText = outputText.replace(/(main_arp:[\s\S]*?)(\.\w+\(.*?\))/gm, '$1$2.log()');
-    } else {
-        return outputText;
     }
 
+    if (bassOn) {
+        outputText = outputText.replace("_bassline:", "bassline:");
+    } else {
+        outputText = outputText.replace("bassline:", "_bassline:");
+    }
+
+    outputText = outputText.replace(/(bassline:[\s\S]*?)\.lpf\([^\)]+\)/, `$1.lpf(${bassLpf})`);
+
+
+    if (selectedBass) {
+        outputText = outputText.replace(/\.sound\("[^"]*"\)/, `.sound("${selectedBass}")`);
+    } 
 
     return outputText;
 }
