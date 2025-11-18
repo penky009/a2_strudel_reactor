@@ -1,10 +1,10 @@
 
 export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf, arpOn, selectedArp, d3GraphOn, bassOn, bassLpf, selectedBass }) {
 
-    // Update the volume tag
     let outputText = inputText;
-    outputText = outputText.replace(/\/\/ all\(x => x\.gain\([^)]+\)\)/g,`all(x => x.gain(${volume})`);
-    // outputText = outputText.replaceAll("{$VOLUME}", volume)
+
+    // Update the gain tag for all instruments
+    outputText = outputText.replace(/\.gain\(([^)]+)\)/g, `.gain($1 * ${volume})`);
 
     // Mute/Unmute the drum tag
     Object.keys(drumsOn).forEach(setName => {
@@ -13,14 +13,14 @@ export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf
     });
 
     // Update the CPM tag
-    outputText = outputText.replace(/setcps\([^)]+\)/gi, `setcpm(${cpm})`);
+    outputText = outputText.replace("setcpm({CPM})", `setcpm(${cpm})`);
     // outputText = outputText.replaceAll("{$CPM}", cpm)
 
     // Update the drum1 LPF tag
-    outputText = outputText.replace(/(drums:[^]*?)\.lpf\([^)]+\)/gi, `$1.lpf(${drum1lpf})`);
+    outputText = outputText.replace(".lpf({DRUM1LPF})", `.lpf(${drum1lpf})`);
 
     // Update the drum2 HPF tag
-    outputText = outputText.replace(/(drums2:[^]*?)\.hpf\([^)]+\)/gi, `$1.hpf(${drum2hpf})`);
+    outputText = outputText.replace(".hpf({DRUM2HPF})", `.hpf(${drum2hpf})`);
 
     // Mute/Unmute the arpeggiator tag
     if (arpOn) {
@@ -30,15 +30,13 @@ export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf
     }
 
     // Change the arpeggiator melody
-    if (selectedArp === "arp1") {
-        outputText = outputText.replace(/(main_arp:[\s\S]*?)pick\([a-zA-Z0-9_]+,/g, `$1pick(arpeggiator1,`);
-    } else {
-        outputText = outputText.replace(/(main_arp:[\s\S]*?)pick\([a-zA-Z0-9_]+,/g, `$1pick(arpeggiator2,`);
+    if (selectedArp === "arp2") {
+        outputText = outputText.replace(`note(pick(arpeggiator1, "<0 1 2 3>/2"))`, `note(pick(arpeggiator2, "<0 1 2 3>/2"))`);
     }
 
     // Enable d3 graphing by logging the main arpeggiator
     if (d3GraphOn) {
-        outputText = outputText.replace(/(main_arp:[\s\S]*?)(\.\w+\(.*?\))/gm, '$1$2.log()');
+        outputText = outputText.replace("//.log()", ".log()");
     }
 
     // Mute/Unmute the bassline tag
@@ -49,11 +47,11 @@ export function Preprocess({ inputText, volume, drumsOn, cpm, drum1lpf, drum2hpf
     }
 
     // Update the bassline lpf (Low Pass Filer)
-    outputText = outputText.replace(/(bassline:[\s\S]*?)\.lpf\([^\)]+\)/, `$1.lpf(${bassLpf})`);
+    outputText = outputText.replace(".lpf({BASSLINELPF})", `.lpf(${bassLpf})`);
 
     // Change the bassline instrument sound
     if (selectedBass) {
-        outputText = outputText.replace(/\.sound\("[^"]*"\)/, `.sound("${selectedBass}")`);
+        outputText = outputText.replace(`.sound("{BASSLINESOUND}")`, `.sound("${selectedBass}")`);
     } 
 
     return outputText;

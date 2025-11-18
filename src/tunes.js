@@ -1,4 +1,4 @@
-export const stranger_tune = `setcps(140/60/4)
+export const stranger_tune = `setcpm({CPM})
 
 samples('github:algorave-dave/samples')
 samples('https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/strudel.json')
@@ -41,11 +41,12 @@ const bass = 0
 
 bassline:
 note(pick(basslines, bass))
-.sound("supersaw")
+.sound("{BASSLINESOUND}")
 .postgain(2)
 .room(0.6)
-.lpf(700)
+.lpf({BASSLINELPF})
 .room(0.4)
+.gain(1)
 .postgain(pick(gain_patterns, pattern))
 
 
@@ -56,7 +57,8 @@ note(pick(arpeggiator1, "<0 1 2 3>/2"))
 .adsr("0:0:.5:.1")
 .room(0.6)
 .lpenv(3.3)
-.postgain(pick(gain_patterns, pattern))
+.gain(1)
+.postgain(pick(gain_patterns, pattern))//.log()
 
 
 drums:
@@ -65,15 +67,17 @@ stack(
   .postgain(6)
   .pcurve(2)
   .pdec(1)
+  .gain(1)
   .struct(pick(drum_structure, pattern)),
 
   s("sh").struct("[x!3 ~!2 x!10 ~]")
-  .postgain(0.5).lpf(7000)
+  .postgain(0.5).lpf({DRUM1LPF})
   .bank("RolandTR808")
   .speed(0.8).jux(rev).room(sine.range(0.1,0.4)).gain(0.6),
 
   s("{~ ~ rim ~ cp ~ rim cp ~!2 rim ~ cp ~ < rim ~ >!2}%8 *2")
   .bank("[KorgDDM110, OberheimDmx]").speed(1.2)
+  .gain(1)
   .postgain(.25),
 )
 
@@ -89,7 +93,7 @@ stack(
   s("[psr:[2|5|6|7|8|9|12|24|25]*16]?0.1")
   .gain(0.1)
   .postgain(pick(gain_patterns, pattern))
-  .hpf(1000)
+  .hpf({DRUM2HPF})
   .speed(0.5)
   .rarely(jux(rev)),
 )
