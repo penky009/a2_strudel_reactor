@@ -3,164 +3,173 @@ function DJControls({ onVolumeChange, volume, onCPMChange, cpm, onDrumAccordionC
 
     return (
         <>
-        {/* CPS Text Box */}
-        <div className="input-group mb-3">
-            <span className="input-group-text" id="cps_label">CPM:</span>
-                <input type="number" className="form-control" placeholder="35" value={cpm} onChange={onCPMChange} min="1" />
-        </div>
-
-        {/* Volume Slider */}
-        <div>
-            <label htmlFor="volume_range" className="form-label">Volume: {volume * 100}%</label>
-            <input className="form-range" type="range" id="volume_range" min="0" max="1" step="0.1" value={volume} onChange={onVolumeChange} />
-        </div>
-
-        {/* Drum Control Accordion */}
-        <div className="mt-3 accordion" id="drumAccordion">
-            <div className="accordion-item">
-                <h2 className="accordion-header">
-                    <button className={`accordion-button ${!isDrumAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onDrumAccordionChange}>Drum Control</button>
-                </h2>
-                {/* Drum Controls */}
-                {isDrumAccordionOpen && (
-                    <div className="accordion-body">
-                        <div className="row">
-                            <div className="col-6 border-end">
-                                {/* Enable Drum 1 Checkbox */}
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" id="drum_box"
-                                        checked={drumsOn.drums} onChange={onDrumChange} />
-                                    <label className="form-check-label" htmlFor="drum_box">
-                                        Enable Drums
-                                    </label>
-                                </div>
-                                {/* Drum 1 LPF Slider */}
-                                <div className="mt-3">
-                                    <label htmlFor="drum1_lpf_range" className="form-label">LPF: {drum1lpf}</label>
-                                    <input className="form-range" type="range" id="drum1_lpf_range" min="0" max="10000" step="100" value={drum1lpf} onChange={onDrum1LpfChange} />
-                                </div>
-                            </div>
-
-                            {/* Enable Drum 2 Checkbox */}
-                            <div className="col-6">
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" id="drum2_box"
-                                        checked={drumsOn.drums2} onChange={onDrum2Change} />
-                                    <label className="form-check-label" htmlFor="drum2_box">
-                                        Enable Drums2
-                                    </label>
-                                </div>
-                                {/* Drum 2 HPF Slider */}
-                                <div className="mt-3">
-                                    <label htmlFor="drum2_hpf_range" className="form-label">HPF: {drum2hpf}</label>
-                                    <input className="form-range" type="range" id="drum2_hpf_range" min="0" max="10000" step="100" value={drum2hpf} onChange={onDrum2HpfChange} />
-                                </div>
-                            </div>
+            <div className="row">
+                {/* CPS Text Box */}
+                <div className="col">
+                    <div className="input-group mb-3">
+                        <span className="input-group-text" id="cps_label">CPM:</span>
+                        <input type="number" className="form-control" placeholder="35" value={cpm} onChange={onCPMChange} min="1" />
+                    </div>
+                </div>
+                {/* Volume Slider */}
+                <div className="col mt-1">
+                    <div className="row justify-content-left">
+                        <div className="col-auto">
+                            <label htmlFor="volume_range" className="form-label">Volume: {volume * 100}%</label>
+                        </div>
+                        <div className="col-8">
+                            <input className="form-range " type="range" id="volume_range" min="0" max="1" step="0.1" value={volume} onChange={onVolumeChange} />
                         </div>
                     </div>
-                )}
+                </div>
             </div>
-        </div>
-        {/* Arpeggiator Control Accordion */}
-        <div className="mt-3 accordion" id="arpAccordion">
-            <div className="accordion-item">
-                <h2 className="accordion-header">
-                    <button className={`accordion-button ${!isArpAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onArpAccordionChange}>Arpeggiator Control</button>
-                </h2>
-                {/* Arppegiator Controls */}
-                {isArpAccordionOpen && (
-                    <div className="accordion-body">
-                        <div className="row">
-                            <div className="col-6 border-end">
-                                {/* Enable Arpeggiator Checkbox */}
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" id="arp_box"
-                                        checked={arpOn} onChange={onArpChange} />
-                                    <label className="form-check-label" htmlFor="arp_box">
-                                        Enable Arpeggiator
-                                    </label>
-                                </div>
-                                {/* Enable Arpeggiator D3 Graph Checkbox */}
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" id="arp_graph_box"
-                                        checked={d3Graph} onChange={onD3GraphChange} />
-                                    <label className="form-check-label" htmlFor="arp_graph_box">
-                                        Enable Arpeggiator D3 Graph
-                                    </label>
-                                </div>
-                                {/* D3 Graph Info Alert */}
-                                {d3Graph && (
-                                    <div className="alert alert-info mt-3" role="alert">
-                                        <div className="text-center">
-                                            <strong>D3 Graph Enabled!</strong>
-                                            <p>Scroll down to see the dynamic arpeggiator graph!</p>
-                                        </div>
+
+            {/* Drum Control Accordion */}
+            <div className="mt-3 accordion" id="drumAccordion">
+                <div className="accordion-item">
+                    <h2 className="accordion-header">
+                        <button className={`accordion-button ${!isDrumAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onDrumAccordionChange}>Drum Control</button>
+                    </h2>
+                    {/* Drum Controls */}
+                    {isDrumAccordionOpen && (
+                        <div className="accordion-body">
+                            <div className="row">
+                                <div className="col-6 border-end">
+                                    {/* Enable Drum 1 Checkbox */}
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" id="drum_box"
+                                            checked={drumsOn.drums} onChange={onDrumChange} />
+                                        <label className="form-check-label" htmlFor="drum_box">
+                                            Enable Drums
+                                        </label>
                                     </div>
-                                )}
-                            </div>
-                            {/* Select Arppegiator */}
-                            <div className="col-6">
-                                <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="arp_radio" id="arp1_radio" value="arp1"
-                                        checked={selectedArp === "arp1"} onChange={onSelectedArpChange} />
-                                    <label className="form-check-label" htmlFor="arp1_radio">
-                                        Arpeggiator1
-                                    </label>
+                                    {/* Drum 1 LPF Slider */}
+                                    <div className="mt-3">
+                                        <label htmlFor="drum1_lpf_range" className="form-label">LPF: {drum1lpf}</label>
+                                        <input className="form-range" type="range" id="drum1_lpf_range" min="0" max="10000" step="100" value={drum1lpf} onChange={onDrum1LpfChange} />
+                                    </div>
                                 </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="radio" name="arp_radio" id="arp2_radio" value="arp2"
-                                        checked={selectedArp === "arp2"} onChange={onSelectedArpChange} />
-                                    <label className="form-check-label" htmlFor="arp2_radio">
-                                        Arpeggiator2
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
-        {/* Bassline Control Accordion */}
-        <div className="mt-3 accordion" id="bassAccordion">
-            <div className="accordion-item">
-                <h2 className="accordion-header">
-                    <button className={`accordion-button ${!isBassAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onBassAccordionChange}>Bassline Control</button>
-                </h2>
-                {/* Bassline Controls */}
-                {isBassAccordionOpen && (
-                    <div className="accordion-body">
-                        <div className="row">
-                            <div className="col-6 border-end">
-                                {/* Enable Bassline Checkbox */}
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" id="bass_box"
-                                        checked={bassOn} onChange={onBassChange} />
-                                    <label className="form-check-label" htmlFor="bass_box">
-                                        Enable Bassline
-                                    </label>
-                                </div>
-                                {/* Bassline LPF Slider */}
-                                <div className="mt-3">
-                                    <label htmlFor="bass_lpf_range" className="form-label">LPF: {bassLpf}</label>
-                                    <input className="form-range" type="range" id="bass_lpf_range" min="0" max="10000" step="100" value={bassLpf} onChange={onBassLpfChange} />
-                                </div>
-                            </div>
-                            {/* Select Bassline Sound */}
-                            <div className="col-6">
-                                <p>Bassline Sound:</p>
-                                    <select className="form-select" value={selectedBass} onChange={onSelectedBassChange}>
-                                    <option value="supersaw">supersaw</option>
-                                    <option value="square">square</option>
-                                    <option value="sawtooth">sawtooth</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </div>
 
-    </>
+                                {/* Enable Drum 2 Checkbox */}
+                                <div className="col-6">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" id="drum2_box"
+                                            checked={drumsOn.drums2} onChange={onDrum2Change} />
+                                        <label className="form-check-label" htmlFor="drum2_box">
+                                            Enable Drums2
+                                        </label>
+                                    </div>
+                                    {/* Drum 2 HPF Slider */}
+                                    <div className="mt-3">
+                                        <label htmlFor="drum2_hpf_range" className="form-label">HPF: {drum2hpf}</label>
+                                        <input className="form-range" type="range" id="drum2_hpf_range" min="0" max="10000" step="100" value={drum2hpf} onChange={onDrum2HpfChange} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+            {/* Arpeggiator Control Accordion */}
+            <div className="mt-3 accordion" id="arpAccordion">
+                <div className="accordion-item">
+                    <h2 className="accordion-header">
+                        <button className={`accordion-button ${!isArpAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onArpAccordionChange}>Arpeggiator Control</button>
+                    </h2>
+                    {/* Arppegiator Controls */}
+                    {isArpAccordionOpen && (
+                        <div className="accordion-body">
+                            <div className="row">
+                                <div className="col-6 border-end">
+                                    {/* Enable Arpeggiator Checkbox */}
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" id="arp_box"
+                                            checked={arpOn} onChange={onArpChange} />
+                                        <label className="form-check-label" htmlFor="arp_box">
+                                            Enable Arpeggiator
+                                        </label>
+                                    </div>
+                                    {/* Enable Arpeggiator D3 Graph Checkbox */}
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" id="arp_graph_box"
+                                            checked={d3Graph} onChange={onD3GraphChange} />
+                                        <label className="form-check-label" htmlFor="arp_graph_box">
+                                            Enable Arpeggiator D3 Graph
+                                        </label>
+                                    </div>
+                                    {/* D3 Graph Info Alert */}
+                                    {d3Graph && (
+                                        <div className="alert alert-info mt-3" role="alert">
+                                            <div className="text-center">
+                                                <strong>D3 Graph Enabled!</strong>
+                                                <p>Scroll down to see the dynamic arpeggiator graph!</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                                {/* Select Arppegiator */}
+                                <div className="col-6">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="arp_radio" id="arp1_radio" value="arp1"
+                                            checked={selectedArp === "arp1"} onChange={onSelectedArpChange} />
+                                        <label className="form-check-label" htmlFor="arp1_radio">
+                                            Arpeggiator1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="arp_radio" id="arp2_radio" value="arp2"
+                                            checked={selectedArp === "arp2"} onChange={onSelectedArpChange} />
+                                        <label className="form-check-label" htmlFor="arp2_radio">
+                                            Arpeggiator2
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+            {/* Bassline Control Accordion */}
+            <div className="mt-3 accordion" id="bassAccordion">
+                <div className="accordion-item">
+                    <h2 className="accordion-header">
+                        <button className={`accordion-button ${!isBassAccordionOpen ? " collapsed" : ""}`} type="button" onClick={onBassAccordionChange}>Bassline Control</button>
+                    </h2>
+                    {/* Bassline Controls */}
+                    {isBassAccordionOpen && (
+                        <div className="accordion-body">
+                            <div className="row">
+                                <div className="col-6 border-end">
+                                    {/* Enable Bassline Checkbox */}
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" id="bass_box"
+                                            checked={bassOn} onChange={onBassChange} />
+                                        <label className="form-check-label" htmlFor="bass_box">
+                                            Enable Bassline
+                                        </label>
+                                    </div>
+                                    {/* Bassline LPF Slider */}
+                                    <div className="mt-3">
+                                        <label htmlFor="bass_lpf_range" className="form-label">LPF: {bassLpf}</label>
+                                        <input className="form-range" type="range" id="bass_lpf_range" min="0" max="10000" step="100" value={bassLpf} onChange={onBassLpfChange} />
+                                    </div>
+                                </div>
+                                {/* Select Bassline Sound */}
+                                <div className="col-6">
+                                    <p>Bassline Sound:</p>
+                                        <select className="form-select" value={selectedBass} onChange={onSelectedBassChange}>
+                                        <option value="supersaw">supersaw</option>
+                                        <option value="square">square</option>
+                                        <option value="sawtooth">sawtooth</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+        </>
     );
 }
 
